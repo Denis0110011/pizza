@@ -10,6 +10,4 @@ Route::get('/test', function () {
         'data'=>'hello world'
     ];
 });
-Route::get('/test2', function () {
-    return['data'=>'hello world2'];
-});
+
