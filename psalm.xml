@@ -5,7 +5,7 @@
     checkForThrowsInGlobalScope="true"
     disableSuppressAll="true"
     ensureArrayStringOffsetsExist="true"
-    errorLevel="1"
+    errorLevel="4"
     findUnusedCode="false"
     findUnusedBaselineEntry="true"
     findUnusedPsalmSuppress="true"

@@ -7,12 +7,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 
 final class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = ['name', 'price', 'description', 'type'];
+
     protected $casts = ['price' => 'float'];
 
     public function carts(): HasMany
@@ -24,10 +26,14 @@ final class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    public function scopePizzas($query){
-        return $query->where('type','pizza');
+
+    public function scopePizzas(Builder $query): Builder
+    {
+        return $query->where('type', 'pizza');
     }
-    public function scopeDrinks($query){
-        return $query->where('type','drink');
+
+    public function scopeDrinks(Builder $query): Builder
+    {
+        return $query->where('type', 'drink');
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->
-            $table->enum('type', ['pizza', 'drink']);
+            $table
+            ->{$table}->enum('type', ['pizza', 'drink']);
             $table->timestamps();
         });
     }

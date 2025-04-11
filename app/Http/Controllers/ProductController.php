@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
-class ProductController extends Controller
+final class ProductController extends Controller
 {
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(): JsonResponse
     {
-        $pizzas=Product::query()->where('type','pizza')->get();
-        $drinks=Product::query()->where('type','drink')->get();
-        return response()->json(['pizzas'=>$pizzas,'drinks'=>$drinks]);
+        $pizzas = Product::query()->where('type', 'pizza')->get();
+        $drinks = Product::query()->where('type', 'drink')->get();
+
+        return response()->json(['pizzas' => $pizzas, 'drinks' => $drinks]);
     }
 }

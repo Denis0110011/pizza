@@ -1,33 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controllers\Middleware;
-use Illuminate\Routing\Controllers\HasMiddleware;
-class ProductController extends Controller
+
+final class ProductController extends Controller
 {
     public static function middleware(): array
     {
         return [
             'auth',
-            'admin'
+            'admin',
         ];
     }
 
     public function index()
     {
         $products = Product::all();
+
         return response()->json($products);
     }
 
-
-    public function create()
-    {
-
-    }
+    public function create(): void {}
 
     /**
      * Store a newly created resource in storage.
@@ -38,9 +36,10 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string|max:255',
             'price' => 'required|numeric|min:0',
-            'type' => 'required|in:pizza,drink'
+            'type' => 'required|in:pizza,drink',
         ]);
         $product = Product::create([$request->all()]);
+
         return response()->json($product);
     }
 
@@ -50,16 +49,14 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+
         return response()->json($product);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $product)
-    {
-        //
-    }
+    public function edit(Product $product): void {}
 
     /**
      * Update the specified resource in storage.
@@ -72,6 +69,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'type' => 'required|in:pizza,drink']);
         $product->update([$request->all()]);
+
         return response()->json($product);
     }
 
@@ -82,6 +80,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
+
         return response()->json(null, 204);
     }
 }

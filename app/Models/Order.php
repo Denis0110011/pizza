@@ -21,7 +21,9 @@ final class Order extends Model
         'completed' => 'завершен',
         'canceled' => 'отменен',
     ];
+
     protected $casts = ['price' => 'float'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -31,13 +33,15 @@ final class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    public function updateStatus(string $status):bool
-    {
-        $result=$this->update(['status' => $status]);
 
-        if($result){
+    public function updateStatus(string $status): bool
+    {
+        $result = $this->update(['status' => $status]);
+
+        if ($result) {
             $this->refresh();
         }
+
         return $result;
 
     }

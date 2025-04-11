@@ -33,7 +33,7 @@ final class User extends Authenticatable
      * @var list<string>
      */
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     /**
@@ -48,8 +48,9 @@ final class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
-    public function isAdmin(): bool{
+
+    public function isAdmin(): bool
+    {
         return $this->getAttribute('is_admin');
     }
 }
-
