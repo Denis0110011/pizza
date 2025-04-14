@@ -1,25 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
-final class OrderItem extends Model
+class OrderItem extends Model
 {
-    protected $fillable = ['product_id', 'order_id', 'quantity', 'price'];
-
-    protected $casts = ['price' => 'float'];
-
-    public function product(): BelongsTo
+    public function cart(): BelongsTo
+    {
+        return $this->belongsTo(Cart::class);
+    }
+    public function product():belongsTo
     {
         return $this->belongsTo(Product::class);
-    }
-
-    public function order(): BelongsTo
-    {
-        return $this->belongsTo(Order::class);
     }
 }

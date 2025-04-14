@@ -1,39 +1,24 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Query\Builder;
 
-final class Product extends Model
+class Product extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['name', 'price', 'description', 'type'];
-
-    protected $casts = ['price' => 'float'];
-
-    public function carts(): HasMany
+    protected $fillable=['name',
+        'description',
+        'price',
+        'type'
+    ];
+    protected $casts=[
+        'price'=>'float',
+    ];
+    public function carts():BelongsTo
     {
-        return $this->hasMany(Cart::class);
-    }
-
-    public function orderItems(): HasMany
-    {
-        return $this->hasMany(OrderItem::class);
-    }
-
-    public function scopePizzas(Builder $query): Builder
-    {
-        return $query->where('type', 'pizza');
-    }
-
-    public function scopeDrinks(Builder $query): Builder
-    {
-        return $query->where('type', 'drink');
+        return $this->belongsTo(Cart::class);
     }
 }
