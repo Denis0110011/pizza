@@ -17,8 +17,5 @@ class Product extends Model
     protected $casts=[
         'price'=>'float',
     ];
-    public function carts():BelongsTo
-    {
-        return $this->belongsTo(Cart::class);
-    }
+
 }
