@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Auth\Middleware\Authenticate;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -16,5 +17,9 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void {}
+    public function boot(): void {
+        Authenticate::redirectUsing(function ($request) {
+            return route('register');
+    });
+}
 }

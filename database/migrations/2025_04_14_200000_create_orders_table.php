@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
+            $table->decimal('total');
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
         });
     }

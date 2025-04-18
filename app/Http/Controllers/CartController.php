@@ -20,7 +20,21 @@ private function getCart():Cart
         $token=Str::uuid()->toString();
         \Cookie::queue('cart_token', $token, 60*24*30);
     }
-    return Cart::with('items.product')->firstOrCreate(['session_id'=>$token]);
+    $query=Cart::with('items.product')->firstOrCreate(['session_id'=>$token]);
+    if(auth()->check()){
+        $query->orwhere('user_id',auth()->user()->id);
+    }
+    $cart=$query->first();
+    if(!$cart){
+        $cart=Cart::create([
+            'session_id'=>$token,
+            'user_id'=>auth()->user()->id ?? null,
+        ]);
+    }elseif (auth()->check() && !$cart->user_id){
+        $cart->user_id=auth()->user()->id;
+        $cart->save();
+    }
+    return $cart;
 }
 public function index():JsonResponse{
     $cart=$this->getCart();

@@ -13,9 +13,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function cart():HasOne
+    public function items(): HasMany
     {
-        return $this->hasOne(Cart::class);
+        return $this->hasMany(OrderItem::class);
     }
+    protected $fillable=['user_id', 'total','email', 'address', 'phone', 'name'];
 
 }
