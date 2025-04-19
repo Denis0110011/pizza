@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+final class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +15,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+
         return view('products.index', ['products' => $products]);
 
     }
@@ -20,9 +23,7 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-    }
+    public function create(): void {}
 
     /**
      * Store a newly created resource in storage.
@@ -35,6 +36,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:1',
             'type' => 'required|in:pizza,drink',
         ]);
+
         return Product::create($validated);
     }
 
@@ -49,10 +51,7 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-
-    }
+    public function edit(string $id): void {}
 
     /**
      * Update the specified resource in storage.
@@ -66,6 +65,7 @@ class ProductController extends Controller
             'type' => 'sometimes|in:pizza,drink',
         ]);
         $product->update($validated);
+
         return $product;
     }
 
@@ -75,6 +75,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+
         return response()->noContent();
     }
 }

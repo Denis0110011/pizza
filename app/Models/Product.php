@@ -1,21 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Product extends Model
+final class Product extends Model
 {
-    protected $fillable=['name',
+    protected $fillable = ['name',
         'description',
         'price',
-        'type'
-    ];
-    protected $casts=[
-        'price'=>'float',
+        'type',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
 }

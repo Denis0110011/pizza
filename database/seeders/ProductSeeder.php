@@ -1,29 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use App\Models\Product;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ProductSeeder extends Seeder
+final class ProductSeeder extends Seeder
 {
     public function run(): void
     {
         Product::create([
-            'name'=>'Пепперони',
+            'name' => 'Пепперони',
             'description' => 'пепперони',
             'price' => 100.52,
             'type' => 'pizza',
         ]);
         Product::create([
-            'name'=>'Маргарита',
+            'name' => 'Маргарита',
             'description' => 'margarita',
             'price' => 100,
             'type' => 'pizza',
         ]);
         Product::create([
-            'name'=>'cola',
+            'name' => 'cola',
             'description' => 'cola',
             'price' => 42,
             'type' => 'drink',
