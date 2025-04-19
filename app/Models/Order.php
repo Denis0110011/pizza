@@ -17,6 +17,12 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
-    protected $fillable=['user_id', 'total','email', 'address', 'phone', 'name'];
+    protected $fillable=['user_id', 'total','email', 'address', 'phone', 'name', 'status'];
+    const STATUTES=[
+        'pending',
+        'processing',
+        'completed',
+        'cancelled',
+    ];
 
 }

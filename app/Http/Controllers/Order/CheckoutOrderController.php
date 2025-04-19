@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Order;
 
-use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Product;
-use App\Models\Cart;
-use App\Models\CartItem;
 use Illuminate\Support\Str;
-use App\Models\OrderItem;
-use App\Models\Order;
 
-class OrderController extends Controller
+class CheckoutOrderController extends Controller
 {
     private function getCart():Cart
     {
