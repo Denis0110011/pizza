@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 
-final class HistoryOrderController extends Controller
+final class UserHistoryOrderController extends Controller
 {
     public function __invoke(): JsonResponse
     {

@@ -74,10 +74,10 @@ final class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product): Response
+    public function destroy(int $id): Response
     {
+        $product=Product::find($id);
         $product->delete();
-
         return response()->noContent();
     }
 }
