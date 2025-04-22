@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 
-class AdminHistoryOrdersController extends Controller
+final class AdminHistoryOrdersController extends Controller
 {
-    public function __invoke(){
+    public function __invoke()
+    {
         $orders = Order::orderBy('created_at', 'desc')->with('items.product')->get();
+
         return response()->json(['orders' => $orders]);
     }
 }

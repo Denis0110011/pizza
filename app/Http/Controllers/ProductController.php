@@ -76,8 +76,9 @@ final class ProductController extends Controller
      */
     public function destroy(int $id): Response
     {
-        $product=Product::find($id);
+        $product = Product::find($id);
         $product->delete();
+
         return response()->noContent();
     }
 }
