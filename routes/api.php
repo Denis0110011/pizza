@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\CheckoutOrderController;
 use App\Http\Controllers\Order\HistoryOrderController;
 use App\Http\Controllers\Order\StatusOrderController;
@@ -17,7 +17,7 @@ Route::prefix('cart')->group(static function (): void {
 Route::middleware('auth:sanctum')->group(static function (): void {
     Route::prefix('order')->group(static function (): void {
         Route::post('/checkout', [CheckoutOrderController::class, 'checkout']);
-        Route::get('/history', [HistoryOrderController::class, 'index']);
-        Route::patch('/status', StatusOrderController::class);
+        Route::get('/history', HistoryOrderController::class);
+        Route::patch('{id}/status', StatusOrderController::class);
     });
 });

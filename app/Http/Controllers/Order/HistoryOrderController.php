@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 final class HistoryOrderController extends Controller
 {
-    public function index(): JsonResponse
+    public function __invoke(): JsonResponse
     {
         $user = auth()->user();
         $orders = Order::with('items.product')

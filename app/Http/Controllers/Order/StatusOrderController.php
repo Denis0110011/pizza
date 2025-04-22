@@ -11,17 +11,19 @@ use Illuminate\Http\Request;
 
 final class StatusOrderController extends Controller
 {
-    public function __invoke(Request $request, Order $order): JsonResponse
+    public function __invoke(Request $request, int $id): JsonResponse
     {
-        $request->validate(['status' => 'required|string|in:pending,processing,delivered,cancelled',
-            'id' => 'integer|required']);
-        $order = Order::find($request->id);
+        $request->validate(['status' => 'required|string|in:pending,processing,delivered,cancelled']);
+        $order = Order::find($id);
         if (!$order) {
-            return response()->json(['error' => 'Order not found'], 404);
+            return response()->json(['error' => 'Заказ не найден'], 404);
         }
         $order->status = $request->status;
         $order->save();
 
-        return response()->json(['message' => 'Статус обновлен', 'status' => $order->status]);
+        return response()->json(['message' => 'Статус обновлен','order'=>['id' => $order->id,
+            'status' => $order->status,
+            'total'=>$order->total,
+            'items'=>$order->items]]);
     }
 }

@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 final class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():View
     {
         $products = Product::all();
 
@@ -28,7 +31,7 @@ final class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request):Product
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:100',
@@ -43,7 +46,7 @@ final class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id):Product
     {
         return Product::find($id);
     }
@@ -56,7 +59,7 @@ final class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Product $product):Product
     {
         $validated = $request->validate([
             'name' => 'sometimes|string|min:3|max:100',
@@ -72,7 +75,7 @@ final class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product):Response
     {
         $product->delete();
 
