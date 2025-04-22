@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Dto\ResultDto;
 use App\Models\Cart;
 use App\Models\Product;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Dto\ResultDto;
 
 final class CartService
 {
@@ -37,7 +35,8 @@ final class CartService
 
         return $cart;
     }
-    public function addProduct(int $productId, int $quantity=1): ResultDto
+
+    public function addProduct(int $productId, int $quantity = 1): ResultDto
     {
         $product = Product::findOrFail($productId);
         $cart = $this->getCart();
@@ -96,12 +95,15 @@ final class CartService
         } else {
             $item->delete();
         }
+
         return ResultDto::ok('Удалено');
     }
+
     public function clear(): ResultDto
     {
         $cart = $this->getCart();
         $cart->items()->delete();
+
         return ResultDto::ok('Корзина очищена');
     }
 }

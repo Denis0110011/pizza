@@ -1,15 +1,21 @@
 <?php
-namespace App\Services;
-use App\Models\Order;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use App\Dto\ResultDto;
 
-class OrderService{
-    protected CartService $cartService;
-    public function __construct(CartService $cartService){
+declare(strict_types=1);
+
+namespace App\Services;
+
+use App\Dto\ResultDto;
+use App\Models\Order;
+
+final class OrderService
+{
+    private CartService $cartService;
+
+    public function __construct(CartService $cartService)
+    {
         $this->cartService = $cartService;
     }
+
     public function checkout(string $address, string $phone): ResultDto
     {
         $cart = $this->cartService->getCart();
@@ -34,6 +40,7 @@ class OrderService{
             ]);
         }
         $cart->items()->delete();
+
         return ResultDto::ok('Заказ создан' . $order->id);
 
     }

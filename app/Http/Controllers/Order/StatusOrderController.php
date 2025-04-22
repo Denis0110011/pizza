@@ -21,9 +21,9 @@ final class StatusOrderController extends Controller
         $order->status = $request->status;
         $order->save();
 
-        return response()->json(['message' => 'Статус обновлен','order'=>['id' => $order->id,
+        return response()->json(['message' => 'Статус обновлен', 'order' => ['id' => $order->id,
             'status' => $order->status,
-            'total'=>$order->total,
-            'items'=>$order->items]]);
+            'total' => $order->total,
+            'items' => $order->items]]);
     }
 }

@@ -4,25 +4,22 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Order;
 
-use App\Dto\ResultDto;
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Services\CartService;
+use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Services\OrderService;
 
 final class CheckoutOrderController extends Controller
 {
     protected CartService $cartService;
+
     protected OrderService $orderService;
-
-
 
     public function __construct(CartService $cartService, OrderService $orderService)
     {
         $this->cartService = $cartService;
-        $this->orderService =$orderService;
+        $this->orderService = $orderService;
     }
 
     public function checkout(Request $request): JsonResponse
@@ -34,9 +31,10 @@ final class CheckoutOrderController extends Controller
         ]);
         $result = $this->orderService->checkout($request->address, $request->phone);
         if (!$result) {
-            return response()->json(['error'=>$result->message]);
+            return response()->json(['error' => $result->message]);
         }
-        return response()->json(['message'=>$result->message]);
+
+        return response()->json(['message' => $result->message]);
 
     }
 }

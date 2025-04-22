@@ -1,8 +1,13 @@
 <?php
+
+declare(strict_types=1);
+
 namespace App\Dto;
-class ResultDto
+
+final class ResultDto
 {
     public bool $success;
+
     public ?string $message;
 
     public function __construct(bool $Success, ?string $message)
@@ -11,11 +16,14 @@ class ResultDto
         $this->message = $message;
 
     }
-    public static function ok(string $message): self{
-        return new self(true,$message);
-    }
-    public static function fail(string $message):self
+
+    public static function ok(string $message): self
     {
-        return new self(false,$message);
+        return new self(true, $message);
+    }
+
+    public static function fail(string $message): self
+    {
+        return new self(false, $message);
     }
 }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Cart;
 
-use App\Dto\ResultDto;
 use App\Http\Controllers\Controller;
 use App\Services\CartService;
 use Illuminate\Http\JsonResponse;
@@ -34,11 +33,12 @@ final class CartController extends Controller
             'product_id' => 'required|exists:products,id',
             'quantity' => 'integer|min:1',
         ]);
-        $result=$this->cartService->addProduct($request->product_id,$request->quantity);
-        if(!$result->success){
-            return response()->json(['error'=>$result->message]);
+        $result = $this->cartService->addProduct($request->product_id, $request->quantity);
+        if (!$result->success) {
+            return response()->json(['error' => $result->message]);
         }
-        return response()->json(['message'=>$result->message]);
+
+        return response()->json(['message' => $result->message]);
     }
 
     public function remove(Request $request): JsonResponse
@@ -47,16 +47,18 @@ final class CartController extends Controller
             'product_id' => 'required|exists:products,id',
             'quantity' => 'nullable|integer|min:1',
         ]);
-        $result=$this->cartService->remove($request->product_id,$request->quantity);
-        if (!$result){
-            return response()->json(['error'=>$result->message]);
+        $result = $this->cartService->remove($request->product_id, $request->quantity);
+        if (!$result) {
+            return response()->json(['error' => $result->message]);
         }
+
         return response()->json(['message' => $result->message]);
     }
 
     public function clear(): JsonResponse
     {
-        $result=$this->cartService->clear();
-        return response()->json(['message'=>$result->message]);
+        $result = $this->cartService->clear();
+
+        return response()->json(['message' => $result->message]);
     }
 }
