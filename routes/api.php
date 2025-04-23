@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\AdminStatusOrderController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\CheckoutOrderController;
 use App\Http\Controllers\Order\UserHistoryOrderController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 
