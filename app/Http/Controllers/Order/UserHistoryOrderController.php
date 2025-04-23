@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 
@@ -18,6 +19,8 @@ final class UserHistoryOrderController extends Controller
         ->orderBy('created_at', 'desc')
         ->get();
 
-        return response()->json(['orders' => $orders]);
+        return response()->json(
+            ['orders' => OrderResource::collection($orders)],
+        );
     }
 }

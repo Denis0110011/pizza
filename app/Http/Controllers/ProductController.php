@@ -4,32 +4,25 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 
 final class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
+    public function index(): JsonResponse
     {
         $products = Product::all();
 
-        return view('products.index', ['products' => $products]);
-
+        return response()->json([
+            'products' => ProductResource::collection($products),
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id): Product
+    public function show(string $id): JsonResponse
     {
-        return Product::find($id);
+        $product = Product::find($id);
+
+        return response()->json(['product' => new ProductResource($product)]);
     }
-
-
-
 }

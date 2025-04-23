@@ -5,37 +5,29 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Products\AdminProductStoreRequest;
+use App\Http\Requests\Admin\Products\AdminProductUpdateRequest;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 final class AdminProductController extends Controller
 {
-    public function store(Request $request): JsonResponse
+    public function store(AdminProductStoreRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:100',
-            'description' => 'nullable|string|min:3|max:500',
-            'price' => 'required|numeric|min:1',
-            'type' => 'required|in:pizza,drink',
-        ]);
+        $validated = $request->validated();
         $product = Product::create($validated);
 
-        return response()->json(['message' => 'Товар создан', 'product' => $product->name]);
+        return response()->json(['message' => 'Товар создан', 'product' => new ProductResource($product)]);
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function update(AdminProductUpdateRequest $request, int $id): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'sometimes|string|min:3|max:100',
-            'description' => 'nullable|string|min:3|max:500',
-            'price' => 'sometimes|numeric|min:1',
-            'type' => 'sometimes|in:pizza,drink',
-        ]);
+        $validated = $request->validated();
         $product = Product::findOrFail($id);
         $product->update($validated);
 
-        return response()->json(['message' => 'Товар обновлен', 'product' => $product]);
+        return response()->json(['message' => 'Товар обновлен', 'product' => new ProductResource($product)]);
     }
 
     public function destroy(int $id): JsonResponse
@@ -43,7 +35,7 @@ final class AdminProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return response()->json(['message' => 'Товар удален', 'product' => $product->name]);
+        return response()->json(['message' => 'Товар удален', 'product' => new ProductResource($product)]);
 
     }
 }

@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Admin\AdminHistoryOrdersController;
 use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\Admin\StatusOrderController;
+use App\Http\Controllers\Admin\AdminStatusOrderController;
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Order\CheckoutOrderController;
 use App\Http\Controllers\Order\UserHistoryOrderController;
+use App\Http\Controllers\ProductController;
 use App\Http\Middleware\isAdmin;
 use Illuminate\Support\Facades\Route;
 
+Route::prefix('products')->group(static function (): void {
+    Route::get('/', [ProductController::class, 'index']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+});
 Route::prefix('cart')->group(static function (): void {
     Route::get('/', [CartController::class, 'index']);
     Route::post('/add', [CartController::class, 'add']);
@@ -27,7 +32,7 @@ Route::middleware([isAdmin::class])->group(static function (): void {
     Route::prefix('admin')->group(static function (): void {
         Route::prefix('orders')->group(static function (): void {
             Route::get('/', AdminHistoryOrdersController::class);
-            Route::patch('{id}/status', StatusOrderController::class);
+            Route::patch('{id}/status', AdminStatusOrderController::class);
         });
         Route::prefix('products')->group(static function (): void {
             Route::post('/add', [AdminProductController::class, 'store']);

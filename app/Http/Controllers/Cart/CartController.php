@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Cart;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cart\AddToCartRequest;
+use App\Http\Requests\Cart\RemoveFromCartRequest;
+use App\Http\Resources\Cart\CartItemResource;
 use App\Services\CartService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class CartController extends Controller
 {
@@ -18,21 +21,17 @@ final class CartController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function index(): JsonResponse
+    public function index(): AnonymousResourceCollection
     {
         $cart = $this->cartService->getCart();
-        $detailed = $cart->items->map(static fn($item) => ['product_id' => $item->product_id, 'quantity' => $item->quantity]);
 
-        return response()->json($detailed);
+        return CartItemResource::collection($cart->items);
 
     }
 
-    public function add(Request $request): JsonResponse
+    public function add(AddToCartRequest $request): JsonResponse
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'integer|min:1',
-        ]);
+        $request->validated();
         $result = $this->cartService->addProduct($request->product_id, $request->quantity);
         if (!$result->success) {
             return response()->json(['error' => $result->message]);
@@ -41,12 +40,9 @@ final class CartController extends Controller
         return response()->json(['message' => $result->message]);
     }
 
-    public function remove(Request $request): JsonResponse
+    public function remove(RemoveFromCartRequest $request): JsonResponse
     {
-        $request->validate([
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'nullable|integer|min:1',
-        ]);
+        $request->validated();
         $result = $this->cartService->remove($request->product_id, $request->quantity);
         if (!$result) {
             return response()->json(['error' => $result->message]);

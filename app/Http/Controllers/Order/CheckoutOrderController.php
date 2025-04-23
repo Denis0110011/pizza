@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\OrderCheckoutRequest;
 use App\Services\CartService;
 use App\Services\OrderService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 final class CheckoutOrderController extends Controller
 {
@@ -22,13 +22,10 @@ final class CheckoutOrderController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function checkout(Request $request): JsonResponse
+    public function checkout(OrderCheckoutRequest $request): JsonResponse
     {
 
-        $request->validate([
-            'address' => 'required|string|max:500',
-            'phone' => 'required|string|max:20',
-        ]);
+        $request->validated();
         $result = $this->orderService->checkout($request->address, $request->phone);
         if (!$result) {
             return response()->json(['error' => $result->message]);
