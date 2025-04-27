@@ -40,7 +40,7 @@ final class CartService
     {
         $product = Product::find($productId);
         if (!$product) {
-           return ResultDto::fail('Продукт не найден');
+            return ResultDto::fail('Продукт не найден');
         }
         $cart = $this->getCart();
         $pizzas = 0;

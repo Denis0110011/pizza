@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use App\Models\Product;
@@ -8,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class ProductFactory extends Factory
+final class ProductFactory extends Factory
 {
     protected $model = Product::class;
 
@@ -17,8 +19,8 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->text(),
-            'price' => $this->faker->randomFloat(2,2, 1000),
-            'type'=>$this->faker->randomElement(['pizza','drink'])
+            'price' => $this->faker->randomFloat(2, 2, 1000),
+            'type' => $this->faker->randomElement(['pizza', 'drink']),
         ];
     }
 }

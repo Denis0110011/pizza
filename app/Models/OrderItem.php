@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 final class OrderItem extends Model
 {
     use HasFactory;
+
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);

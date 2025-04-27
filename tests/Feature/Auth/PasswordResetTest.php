@@ -1,17 +1,19 @@
 <?php
+
+declare(strict_types=1);
 //
-//declare(strict_types=1);
+// declare(strict_types=1);
 //
-//namespace Tests\Feature\Auth;
+// namespace Tests\Feature\Auth;
 //
-//use App\Models\User;
-//use Illuminate\Auth\Notifications\ResetPassword;
-//use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Support\Facades\Notification;
-//use Tests\TestCase;
+// use App\Models\User;
+// use Illuminate\Auth\Notifications\ResetPassword;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Support\Facades\Notification;
+// use Tests\TestCase;
 //
-//final class PasswordResetTest extends TestCase
-//{
+// final class PasswordResetTest extends TestCase
+// {
 //    use RefreshDatabase;
 //
 //    public function testResetPasswordLinkScreenCanBeRendered(): void
@@ -72,4 +74,4 @@
 //            return true;
 //        });
 //    }
-//}
+// }

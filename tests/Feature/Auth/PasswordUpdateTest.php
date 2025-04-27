@@ -1,16 +1,18 @@
 <?php
+
+declare(strict_types=1);
 //
-//declare(strict_types=1);
+// declare(strict_types=1);
 //
-//namespace Tests\Feature\Auth;
+// namespace Tests\Feature\Auth;
 //
-//use App\Models\User;
-//use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Support\Facades\Hash;
-//use Tests\TestCase;
+// use App\Models\User;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Support\Facades\Hash;
+// use Tests\TestCase;
 //
-//final class PasswordUpdateTest extends TestCase
-//{
+// final class PasswordUpdateTest extends TestCase
+// {
 //    use RefreshDatabase;
 //
 //    public function testPasswordCanBeUpdated(): void
@@ -50,4 +52,4 @@
 //            ->assertSessionHasErrorsIn('updatePassword', 'current_password')
 //            ->assertRedirect('/profile');
 //    }
-//}
+// }

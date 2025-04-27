@@ -16,7 +16,7 @@ final class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>User::factory(),
+            'user_id' => User::factory(),
             'name' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),

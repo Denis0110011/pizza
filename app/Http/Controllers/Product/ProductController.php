@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
-use App\Dto\ResultDto;
 
 final class ProductController extends Controller
 {
@@ -25,7 +24,7 @@ final class ProductController extends Controller
     {
         $product = Product::find($id);
         if (!$product) {
-            return response()->json(['error'=>'Продукт не найден'],404);
+            return response()->json(['error' => 'Продукт не найден'], 404);
         }
 
         return response()->json(['product' => new ProductResource($product)]);
