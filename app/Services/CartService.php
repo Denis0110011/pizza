@@ -38,7 +38,10 @@ final class CartService
 
     public function addProduct(int $productId, int $quantity = 1): ResultDto
     {
-        $product = Product::findOrFail($productId);
+        $product = Product::find($productId);
+        if (!$product) {
+           return ResultDto::fail('Продукт не найден');
+        }
         $cart = $this->getCart();
         $pizzas = 0;
         $drinks = 0;

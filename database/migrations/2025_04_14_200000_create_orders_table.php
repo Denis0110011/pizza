@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->decimal('total');
+            $table->decimal('total',15,2);
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
         });
     }

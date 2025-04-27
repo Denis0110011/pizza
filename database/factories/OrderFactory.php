@@ -16,15 +16,14 @@ final class OrderFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id'=>User::factory(),
+            'name' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->address(),
             'email' => $this->faker->unique()->safeEmail(),
-            'status' => $this->faker->word(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'price' => $this->faker->randomFloat(),
-
-            'user_id' => User::factory(),
+            'total' => $this->faker->randomFloat(),
         ];
     }
 }

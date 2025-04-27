@@ -10,9 +10,9 @@ final class ResultDto
 
     public ?string $message;
 
-    public function __construct(bool $Success, ?string $message)
+    public function __construct(bool $success, ?string $message)
     {
-        $this->success = $Success;
+        $this->success = $success;
         $this->message = $message;
 
     }

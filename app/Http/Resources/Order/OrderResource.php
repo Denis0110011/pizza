@@ -21,6 +21,7 @@ final class OrderResource extends JsonResource
             'updated_at' => $this->updated_at,
             'items' => OrderItemResource::collection($this->whenLoaded('items')),
             'total_price' => $this->total,
+            'status'=>$this->status
         ];
     }
 }

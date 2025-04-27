@@ -26,7 +26,6 @@ final class CartController extends Controller
         $cart = $this->cartService->getCart();
 
         return CartItemResource::collection($cart->items);
-
     }
 
     public function add(AddToCartRequest $request): JsonResponse
@@ -44,7 +43,7 @@ final class CartController extends Controller
     {
         $request->validated();
         $result = $this->cartService->remove($request->product_id, $request->quantity);
-        if (!$result) {
+        if (!$result->success) {
             return response()->json(['error' => $result->message]);
         }
 
