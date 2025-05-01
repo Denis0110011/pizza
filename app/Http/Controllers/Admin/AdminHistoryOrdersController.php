@@ -12,7 +12,7 @@ final class AdminHistoryOrdersController extends Controller
 {
     public function __invoke()
     {
-        $orders = Order::orderBy('created_at', 'desc')->with('items.product')->get();
+        $orders = Order::orderBy('created_at', 'desc')->with('items.product')->paginate(10);
 
         return response()->json(['orders' => OrderResource::collection($orders)]);
     }

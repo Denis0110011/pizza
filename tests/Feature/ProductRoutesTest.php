@@ -13,7 +13,7 @@ final class ProductRoutesTest extends TestCase
     {
         $product = Product::factory()->create();
         $response = $this->getJson('api/products');
-        $response->assertStatus(200);
+        $response->assertJsonStructure(['products']);
     }
 
     public function testInvalidIdProduct(): void

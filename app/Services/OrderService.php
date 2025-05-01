@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Dto\ResultDto;
 use App\Models\Order;
+use Symfony\Component\HttpFoundation\Response;
 
 final class OrderService
 {
@@ -20,7 +21,7 @@ final class OrderService
     {
         $cart = $this->cartService->getCart();
         if ($cart->items()->count() === 0) {
-            return ResultDto::fail('Корзина пуста');
+            return ResultDto::fail('Корзина пуста', Response::HTTP_BAD_REQUEST);
         }
 
         $order = Order::create([
@@ -41,7 +42,7 @@ final class OrderService
         }
         $cart->items()->delete();
 
-        return ResultDto::ok('Заказ создан' . $order->id);
+        return ResultDto::ok('Заказ создан' . $order->id, Response::HTTP_OK);
 
     }
 }

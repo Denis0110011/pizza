@@ -9,6 +9,7 @@ use App\Http\Requests\Admin\Products\AdminStatusOrderRequest;
 use App\Http\Resources\Order\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class AdminStatusOrderController extends Controller
 {
@@ -17,7 +18,7 @@ final class AdminStatusOrderController extends Controller
         $request->validated();
         $order = Order::find($id);
         if (!$order) {
-            return response()->json(['error' => 'Заказ не найден'], 404);
+            return response()->json(['error' => 'Заказ не найден'], Response::HTTP_NOT_FOUND);
         }
         $order->status = $request->status;
         $order->save();

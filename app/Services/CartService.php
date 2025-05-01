@@ -8,6 +8,7 @@ use App\Dto\ResultDto;
 use App\Models\Cart;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 final class CartService
 {
@@ -40,7 +41,7 @@ final class CartService
     {
         $product = Product::find($productId);
         if (!$product) {
-            return ResultDto::fail('Продукт не найден');
+            return ResultDto::fail('Продукт не найден', Response::HTTP_BAD_REQUEST);
         }
         $cart = $this->getCart();
         $pizzas = 0;
@@ -60,10 +61,10 @@ final class CartService
             $drinks += $quantity;
         }
         if ($drinks > 20) {
-            return ResultDto::fail('Превышен лимит напитков');
+            return ResultDto::fail('Превышен лимит напитков', Response::HTTP_BAD_REQUEST);
         }
         if ($pizzas > 10) {
-            return ResultDto::fail('Превышен лимит пицц');
+            return ResultDto::fail('Превышен лимит пицц', Response::HTTP_BAD_REQUEST);
         }
 
         $item = $cart->items()->where('product_id', $product->id)->first();
@@ -77,7 +78,7 @@ final class CartService
             ]);
         }
 
-        return ResultDto::ok('Добавлено');
+        return ResultDto::ok('Добавлено', Response::HTTP_OK);
     }
 
     public function remove(int $productId, ?int $quantity): ResultDto
@@ -86,7 +87,7 @@ final class CartService
         $cart = $this->getCart();
         $item = $cart->items()->where('product_id', $product->id)->first();
         if (!$item) {
-            return ResultDto::fail('Товар не найден');
+            return ResultDto::fail('Товар не найден', Response::HTTP_BAD_REQUEST);
         }
         if ($quantity) {
             $newQuantity = $item->quantity - $quantity;
@@ -99,7 +100,7 @@ final class CartService
             $item->delete();
         }
 
-        return ResultDto::ok('Удалено');
+        return ResultDto::ok('Удалено', Response::HTTP_NO_CONTENT);
     }
 
     public function clear(): ResultDto
@@ -107,6 +108,6 @@ final class CartService
         $cart = $this->getCart();
         $cart->items()->delete();
 
-        return ResultDto::ok('Корзина очищена');
+        return ResultDto::ok('Корзина очищена', Response::HTTP_NO_CONTENT);
     }
 }

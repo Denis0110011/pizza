@@ -33,10 +33,10 @@ final class CartController extends Controller
         $request->validated();
         $result = $this->cartService->addProduct($request->product_id, $request->quantity);
         if (!$result->success) {
-            return response()->json(['error' => $result->message]);
+            return response()->json(['error' => $result->message, 'response' => $result->response]);
         }
 
-        return response()->json(['message' => $result->message]);
+        return response()->json(['message' => $result->message, 'response' => $result->response]);
     }
 
     public function remove(RemoveFromCartRequest $request): JsonResponse

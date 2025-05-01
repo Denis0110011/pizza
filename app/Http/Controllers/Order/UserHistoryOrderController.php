@@ -17,7 +17,7 @@ final class UserHistoryOrderController extends Controller
         $orders = Order::with('items.product')
         ->where('user_id', $user->id)
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(10);
 
         return response()->json(
             ['orders' => OrderResource::collection($orders)],

@@ -27,7 +27,7 @@ final class CheckoutOrderController extends Controller
 
         $request->validated();
         $result = $this->orderService->checkout($request->address, $request->phone);
-        if (!$result) {
+        if (!$result->success) {
             return response()->json(['error' => $result->message]);
         }
 
