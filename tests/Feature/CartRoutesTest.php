@@ -15,7 +15,8 @@ final class CartRoutesTest extends TestCase
     public function testCanGetCart(): void
     {
         $response = $this->get('api/cart');
-        $response->assertStatus(200);
+        $response->assertStatus(200)->assertJsonStructure(['data']);
+
     }
 
     public function testCanAddToCart(): void
@@ -28,14 +29,6 @@ final class CartRoutesTest extends TestCase
         $response->assertStatus(200)->assertJson(['message' => 'Добавлено']);
     }
 
-    //    }
-    // //    public function test_invalid_product_id(): void{
-    // //        $response=$this->postJson('api/cart/add', [
-    // //            'product_id'=>99999,
-    // //            'quantity'=>1,
-    // //        ]);
-    // //        $response->assertJson('');
-    //    }
     public function testCartPizzaLimit(): void
     {
         $product = Product::factory()->create(

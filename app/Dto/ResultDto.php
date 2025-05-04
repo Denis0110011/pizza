@@ -10,22 +10,19 @@ final class ResultDto
 
     public ?string $message;
 
-    public ?int $response;
-
-    public function __construct(bool $success, ?string $message, ?int $response)
+    public function __construct(bool $success, ?string $message)
     {
         $this->success = $success;
         $this->message = $message;
-        $this->response = $response;
     }
 
-    public static function ok(string $message, ?int $response = null): self
+    public static function ok(string $message): self
     {
-        return new self(true, $message, $response);
+        return new self(true, $message);
     }
 
-    public static function fail(string $message, ?int $response = null): self
+    public static function fail(string $message): self
     {
-        return new self(false, $message, $response);
+        return new self(false, $message);
     }
 }

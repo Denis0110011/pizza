@@ -19,6 +19,7 @@ final class OrderRoutesTest extends TestCase
     {
         $response = $this->postJson('api/order/checkout');
         $response->assertStatus(401);
+        $response->assertJson(['message' => 'Unauthenticated.']);
     }
 
     public function testCheckoutEmpty(): void
@@ -28,7 +29,7 @@ final class OrderRoutesTest extends TestCase
             'address' => 'moskow',
             'phone' => '0123456789',
         ]);
-        $response->assertJson(['message' => 'Корзина пуста']);
+        $response->assertJson(['error' => 'Корзина пуста']);
     }
 
     public function testCheckout(): void
@@ -54,6 +55,7 @@ final class OrderRoutesTest extends TestCase
         ->create(['user_id' => $user->id]);
         $response = $this->actingAs($user)->getJson('api/order/history');
         $response->assertStatus(200);
+        $response->assertJsonStructure(['orders']);
 
     }
 }
