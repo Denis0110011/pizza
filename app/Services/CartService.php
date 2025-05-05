@@ -41,7 +41,7 @@ final class CartService
     {
         $product = Product::find($productId);
         if (!$product) {
-            return ResultDto::fail('Продукт не найден', Response::HTTP_BAD_REQUEST);
+            return ResultDto::fail('Продукт не найден');
         }
         $cart = $this->getCart();
         $pizzas = 0;
@@ -61,10 +61,10 @@ final class CartService
             $drinks += $quantity;
         }
         if ($drinks > 20) {
-            return ResultDto::fail('Превышен лимит напитков', Response::HTTP_BAD_REQUEST);
+            return ResultDto::fail('Превышен лимит напитков');
         }
         if ($pizzas > 10) {
-            return ResultDto::fail('Превышен лимит пицц', Response::HTTP_BAD_REQUEST);
+            return ResultDto::fail('Превышен лимит пицц');
         }
 
         $item = $cart->items()->where('product_id', $product->id)->first();
@@ -78,7 +78,7 @@ final class CartService
             ]);
         }
 
-        return ResultDto::ok('Добавлено', Response::HTTP_OK);
+        return ResultDto::ok('Добавлено');
     }
 
     public function remove(int $productId, ?int $quantity): ResultDto
@@ -87,7 +87,7 @@ final class CartService
         $cart = $this->getCart();
         $item = $cart->items()->where('product_id', $product->id)->first();
         if (!$item) {
-            return ResultDto::fail('Товар не найден', Response::HTTP_BAD_REQUEST);
+            return ResultDto::fail('Товар не найден');
         }
         if ($quantity) {
             $newQuantity = $item->quantity - $quantity;
@@ -100,7 +100,7 @@ final class CartService
             $item->delete();
         }
 
-        return ResultDto::ok('Удалено', Response::HTTP_NO_CONTENT);
+        return ResultDto::ok('Удалено');
     }
 
     public function clear(): ResultDto
@@ -108,6 +108,6 @@ final class CartService
         $cart = $this->getCart();
         $cart->items()->delete();
 
-        return ResultDto::ok('Корзина очищена', Response::HTTP_NO_CONTENT);
+        return ResultDto::ok('Корзина очищена');
     }
 }
