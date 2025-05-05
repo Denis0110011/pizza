@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\Product;
+use App\Observers\ProductObserver;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,5 +22,6 @@ final class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Authenticate::redirectUsing(static fn($request) => route('register'));
+        Product::observe(ProductObserver::class);
     }
 }

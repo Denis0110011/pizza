@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 final class ProductCacheService
 {
-    private const CACHE_TTL = 600;
+    private const CACHE_TTL = 60 * 60 * 24 * 30;
     private const CACHE_KEY_PREFIX = 'product';
     private const CACHE_KEY_ALL = 'product:all:page:';
 
@@ -18,13 +18,18 @@ final class ProductCacheService
     {
         $cacheKey = self::CACHE_KEY_ALL . $page . ':perPage:' . $perPage;
 
-        return Cache::remember($cacheKey, self::CACHE_TTL, static fn() => Product::paginate($perPage));
+        return Cache::tags(['products'])->remember($cacheKey, self::CACHE_TTL, static fn() => Product::paginate($perPage));
     }
 
     public function getProductById(string $id): ?Product
     {
         $cacheKey = self::CACHE_KEY_PREFIX . $id;
 
-        return Cache::remember($cacheKey, self::CACHE_TTL, static fn() => Product::find($id));
+        return Cache::tags(['products'])->remember($cacheKey, self::CACHE_TTL, static fn() => Product::find($id));
+    }
+
+    public function clearProductsCache(): void
+    {
+        Cache::tags(['products'])->flush();
     }
 }
